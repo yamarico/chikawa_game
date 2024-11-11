@@ -42,8 +42,17 @@ public class CreateManager : MonoBehaviour
             File.Delete(file);
         }
         Init();
+        StartCoroutine(TestCoroutine());  
     }
-
+    IEnumerator TestCoroutine()  
+    {
+               // 3秒間待つ
+        while(true){
+            yield return new WaitForSeconds(3);
+            CreateFromTestPicture();            
+        }
+        yield return null;  
+    }
     // Update is called once per frame
     void Update()
     {
@@ -53,10 +62,11 @@ public class CreateManager : MonoBehaviour
         if (CheckGameOver(people)){
           SceneManager.LoadScene ("GameOver");
         }
-        if (CheckMove(Animal.isMoves))
-        {
-            return;//移動中なら処理はここまで
-        }
+        // if (CheckMove(Animal.isMoves))
+        // {
+        //     return;//移動中なら処理はここまで
+        // }
+        Debug.Log("移動していないよ");
         // test
         if(Input.GetKeyDown(KeyCode.A)){
             CreateFromTestPicture();
@@ -106,7 +116,7 @@ public class CreateManager : MonoBehaviour
     void CreateFromTestPicture()
     {
         // 指定ディレクトリ内のすべての .png ファイルを取得し、最終更新日時でソートして最後のファイルを選択
-        string directoryPath = "/Users/shuhei/Downloads/Image";
+        string directoryPath = "/Users/shuhei/Downloads/chikawa-gamev2/output";
         string[] files = Directory.GetFiles(directoryPath, "*.png");
 
         // 最終更新日時でファイルをソートして最後のファイルを取得
